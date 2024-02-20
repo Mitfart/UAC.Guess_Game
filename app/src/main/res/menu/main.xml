@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_0"
+            android:orderInCategory="100"
+            android:title="@string/menu_main_easy"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/menu_1"
+            android:checked="true"
+            android:orderInCategory="100"
+            android:title="@string/menu_main_normal"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/menu_2"
+            android:orderInCategory="100"
+            android:title="@string/menu_main_hard"
+            app:showAsAction="never" />
+    </group>
+</menu>

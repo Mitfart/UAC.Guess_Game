@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.Base" parent="Theme.Material3.DayNight">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/icons</item>
+
+        <item name="colorSecondary">@color/accent</item>
+        <item name="colorOnSecondary">@color/icons</item>
+        <item name="chipSpacingVertical">@color/accent</item>
+
+        <item name="android:statusBarColor">@color/primary</item>
+
+        <item name="android:textColor">@color/icons</item>
+        <item name="android:textColorHint">@color/divider</item>
+    </style>
+</resources>

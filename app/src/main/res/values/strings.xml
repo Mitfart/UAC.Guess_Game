@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Guess Game</string>
+
+    <string name="m_label">Welcome!</string>
+    <string name="m_leaderboard_btn">Leaders</string>
+    <string name="g_start_btn">Start</string>
+    <string name="g_restart_btn">Restart</string>
+
+    <string name="g_label">Guess the number!</string>
+    <string name="g_guess_btn">Guess</string>
+    <string name="g_exit_btn">exit</string>
+    <string name="g_label_less">Less</string>
+    <string name="g_label_more">More</string>
+
+    <string name="g_label_win">Win!</string>
+    <string name="g_label_lose">Lose!</string>
+
+    <string name="menu_main_easy">Easy</string>
+    <string name="menu_main_normal">Normal</string>
+    <string name="menu_main_hard">Hard</string>
+
+    <string name="l_title">Leaders</string>
+</resources>
