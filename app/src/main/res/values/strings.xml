@@ -1,23 +1,23 @@
 <resources>
-    <string name="app_name">Guess Game</string>
+    <string name="app_name">Угадай число!</string>
 
-    <string name="m_label">Welcome!</string>
-    <string name="m_leaderboard_btn">Leaders</string>
-    <string name="g_start_btn">Start</string>
-    <string name="g_restart_btn">Restart</string>
+    <string name="m_label">Приятной игры!</string>
+    <string name="m_leaderboard_btn">Лидеры</string>
+    <string name="g_start_btn">Начать</string>
+    <string name="g_restart_btn">Заново</string>
 
-    <string name="g_label">Guess the number!</string>
-    <string name="g_guess_btn">Guess</string>
-    <string name="g_exit_btn">exit</string>
-    <string name="g_label_less">Less</string>
-    <string name="g_label_more">More</string>
+    <string name="g_label">Угадай число!</string>
+    <string name="g_guess_btn">Угадать</string>
+    <string name="g_exit_btn">выйти</string>
+    <string name="g_label_less">Меньше</string>
+    <string name="g_label_more">Больше</string>
 
-    <string name="g_label_win">Win!</string>
-    <string name="g_label_lose">Lose!</string>
+    <string name="g_label_win">Победа!</string>
+    <string name="g_label_lose">Поражение!</string>
 
-    <string name="menu_main_easy">Easy</string>
-    <string name="menu_main_normal">Normal</string>
-    <string name="menu_main_hard">Hard</string>
+    <string name="menu_main_easy">Легко</string>
+    <string name="menu_main_normal">Нормально</string>
+    <string name="menu_main_hard">Сложно</string>
 
-    <string name="l_title">Leaders</string>
+    <string name="l_title">Лидеры</string>
 </resources>

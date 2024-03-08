@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "ru.zarichan.change_scene"
+    namespace = "ru.zarichan.guess_game"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "ru.zarichan.change_scene"
+        applicationId = "ru.zarichan.guess_game"
         minSdk = 29
         targetSdk = 34
         versionCode = 1

@@ -1,23 +1,32 @@
-package ru.zarichan.change_scene
+package ru.zarichan.guess_game
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import ru.zarichan.change_scene.adapters.leaderboard.EazyLeaderboardAdapter
-import ru.zarichan.change_scene.adapters.leaderboard.LeaderboardItem
+import ru.zarichan.guess_game.adapters.leaderboard.EazyLeaderboardAdapter
+import ru.zarichan.guess_game.adapters.leaderboard.LeaderboardItem
+
 
 class LeaderboardActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var sharedRef: SharedPreferences
     private lateinit var leaderboardRef: SharedPreferences
+
+    private lateinit var itemsName: TextView
+    private lateinit var itemsTime: TextView
+    private lateinit var itemsAttempts: TextView
 
     private var difficulty: GameDifficulty = GameDifficulty.Normal
 
@@ -25,6 +34,10 @@ class LeaderboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_leaderboard)
+
+        itemsName = findViewById(R.id.items__name)
+        itemsTime = findViewById(R.id.items__time)
+        itemsAttempts = findViewById(R.id.items__attemps)
 
         sharedRef = getSharedPreferences("MODE", Context.MODE_PRIVATE)
         difficulty = GameDifficulty.values()[sharedRef.getInt("difficultyId", 1)]
@@ -36,6 +49,8 @@ class LeaderboardActivity : AppCompatActivity() {
         // recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 //        recyclerView.adapter = CustomRecyclerAdapter(fillList())
         recyclerView.adapter = EazyLeaderboardAdapter(getLeadersList(difficulty))
+
+        refreshLeaderboardHeader()
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
@@ -71,6 +86,8 @@ class LeaderboardActivity : AppCompatActivity() {
 
         recyclerView.adapter = EazyLeaderboardAdapter(getLeadersList(difficulty))
 
+        refreshLeaderboardHeader()
+
         return super.onOptionsItemSelected(item)
     }
 
@@ -81,13 +98,60 @@ class LeaderboardActivity : AppCompatActivity() {
             GameDifficulty.Normal -> "leaders__normal"
             GameDifficulty.Easy -> "leaders__easy"
         }
-        val data: String = leaderboardRef.getString(key, null) ?: ""
-        return Gson().fromJson(data, Array<LeaderboardItem>::class.java)
+
+        val data = StringBuilder()
+
+        try {
+            val fileName = "SAVE__$key"
+
+            val fis = openFileInput(fileName)
+            val input = ByteArray(fis.available())
+
+            while (fis.read(input) >= 0) data.append(String(input))
+            fis.close()
+
+            Toast.makeText(
+                applicationContext,
+                "Файл $fileName открыт", Toast.LENGTH_LONG
+            ).show()
+        } catch (e: Exception) {
+            Log.d("DEBUG_TTT", "Cant load file - $e")
+            return if (leaderboardRef.contains(key)) {
+                val refData: String = leaderboardRef.getString(key, "")!!
+                Gson().fromJson(refData, Array<LeaderboardItem>::class.java)
+            } else {
+                arrayOf()
+            }
+        }
+
+        return Gson().fromJson(data.toString(), Array<LeaderboardItem>::class.java)
     }
 
 
     fun toMain(view: View) {
         val i = Intent(this, MainActivity::class.java)
         startActivity(i)
+    }
+
+
+
+    fun refreshLeaderboardHeader() {
+        when (difficulty) {
+            GameDifficulty.Easy -> {
+                itemsName.isInvisible = false
+                itemsTime.isInvisible = true
+                itemsAttempts.isInvisible = true
+            }
+            GameDifficulty.Normal -> {
+                itemsName.isInvisible = false
+                itemsTime.isInvisible = true
+                itemsAttempts.isInvisible = false
+            }
+            GameDifficulty.Hard -> {
+                itemsName.isInvisible = false
+                itemsTime.isInvisible = false
+                itemsAttempts.isInvisible = false
+            }
+        }
     }
 }

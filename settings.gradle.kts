@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Zarichan_With_Change_Scene"
+rootProject.name = "Zarichan_Guess_Game"
 include(":app")
