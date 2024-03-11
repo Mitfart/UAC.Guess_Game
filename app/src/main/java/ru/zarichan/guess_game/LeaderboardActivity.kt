@@ -83,7 +83,7 @@ class LeaderboardActivity : AppCompatActivity() {
         sharedRef
             .edit()
             .putInt("difficultyId", difficulty.ordinal)
-            .apply();
+            .apply()
 
         recyclerView.adapter = EazyLeaderboardAdapter(getLeadersList(difficulty))
 
@@ -128,6 +128,7 @@ class LeaderboardActivity : AppCompatActivity() {
         val leaders = Gson().fromJson(data.toString(), Array<LeaderboardItem>::class.java)
 
         leaders.sortBy { it.attempts }
+        leaders.sortBy { it.time }
 
         return leaders
     }
@@ -139,19 +140,20 @@ class LeaderboardActivity : AppCompatActivity() {
     }
 
 
-
-    fun refreshLeaderboardHeader() {
+    private fun refreshLeaderboardHeader() {
         when (difficulty) {
             GameDifficulty.Easy -> {
                 itemsName.isInvisible = false
                 itemsTime.isInvisible = true
                 itemsAttempts.isInvisible = true
             }
+
             GameDifficulty.Normal -> {
                 itemsName.isInvisible = false
                 itemsTime.isInvisible = true
                 itemsAttempts.isInvisible = false
             }
+
             GameDifficulty.Hard -> {
                 itemsName.isInvisible = false
                 itemsTime.isInvisible = false

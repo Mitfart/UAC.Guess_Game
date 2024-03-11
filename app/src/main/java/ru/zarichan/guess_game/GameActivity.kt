@@ -6,9 +6,11 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import ru.zarichan.guess_game.adapters.leaderboard.LeaderboardItem
@@ -199,9 +201,25 @@ class GameActivity : AppCompatActivity() {
             GameDifficulty.Easy -> "leaders__easy"
         }
 
-        val leaderboardEditor = leaderboardRef.edit()
-        leaderboardEditor.putString(key, Gson().toJson(leaders))
-        leaderboardEditor.apply()
+        try {
+            val fileName = "SAVE__$key"
+            val content = Gson().toJson(leaders)
+
+            val fos = openFileOutput(fileName, Context.MODE_PRIVATE)
+            fos.write(content.toByteArray())
+            fos.close()
+
+            Toast.makeText(
+                applicationContext,
+                "Файл $fileName сохранён", Toast.LENGTH_LONG
+            ).show()
+        } catch (e: Exception) {
+            val leaderboardEditor = leaderboardRef.edit()
+            leaderboardEditor.putString(key, Gson().toJson(leaders))
+            leaderboardEditor.apply()
+            e.printStackTrace()
+        }
+
         toMain(GameState.Win)
     }
 
@@ -251,7 +269,27 @@ class GameActivity : AppCompatActivity() {
             GameDifficulty.Normal -> "leaders__normal"
             GameDifficulty.Easy -> "leaders__easy"
         }
-        val data: String = leaderboardRef.getString(key, null) ?: ""
-        return Gson().fromJson(data, Array<LeaderboardItem>::class.java)
+
+        val data = StringBuilder()
+
+        try {
+            val fileName = "SAVE__$key"
+
+            val fis = openFileInput(fileName)
+            val input = ByteArray(fis.available())
+
+            while (fis.read(input) >= 0) data.append(String(input))
+            fis.close()
+        } catch (e: Exception) {
+            Log.d("DEBUG_TTT", "Cant load file - $e")
+            return if (leaderboardRef.contains(key)) {
+                val refData: String = leaderboardRef.getString(key, "")!!
+                Gson().fromJson(refData, Array<LeaderboardItem>::class.java)
+            } else {
+                arrayOf()
+            }
+        }
+
+        return Gson().fromJson(data.toString(), Array<LeaderboardItem>::class.java)
     }
 }
