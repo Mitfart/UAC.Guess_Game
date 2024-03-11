@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import ru.zarichan.guess_game.adapters.leaderboard.EazyLeaderboardAdapter
 import ru.zarichan.guess_game.adapters.leaderboard.LeaderboardItem
+import java.util.Collections
 
 
 class LeaderboardActivity : AppCompatActivity() {
@@ -124,7 +125,11 @@ class LeaderboardActivity : AppCompatActivity() {
             }
         }
 
-        return Gson().fromJson(data.toString(), Array<LeaderboardItem>::class.java)
+        val leaders = Gson().fromJson(data.toString(), Array<LeaderboardItem>::class.java)
+
+        leaders.sortBy { it.attempts }
+
+        return leaders
     }
 
 

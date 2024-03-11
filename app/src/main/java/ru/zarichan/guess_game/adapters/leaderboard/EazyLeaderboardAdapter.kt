@@ -11,9 +11,9 @@ import ru.zarichan.guess_game.R
 class EazyLeaderboardAdapter(private val leaders: Array<LeaderboardItem>) :
     RecyclerView.Adapter<EazyLeaderboardAdapter.MyViewHolder>() {
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.items__name)
-        val attempts: TextView = itemView.findViewById(R.id.items__attemps)
-        val time: TextView = itemView.findViewById(R.id.items__time)
+        val name: TextView = itemView.findViewById(R.id.item__name)
+        val attempts: TextView = itemView.findViewById(R.id.item__attemps)
+        val time: TextView = itemView.findViewById(R.id.item__time)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
