@@ -187,7 +187,6 @@ class GameActivity : AppCompatActivity() {
 
     private fun win() {
         val leaderboardItem = LeaderboardItem(
-            difficulty,
             userName,
             if (difficulty == GameDifficulty.Normal || difficulty == GameDifficulty.Hard) attempts else null,
             if (difficulty == GameDifficulty.Hard) (passedTime * .001).toFloat() else null

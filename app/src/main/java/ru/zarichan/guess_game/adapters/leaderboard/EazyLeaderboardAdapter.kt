@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ru.zarichan.guess_game.GameDifficulty
 import ru.zarichan.guess_game.R
 
 class EazyLeaderboardAdapter(private val leaders: Array<LeaderboardItem>) :
@@ -33,9 +32,7 @@ class EazyLeaderboardAdapter(private val leaders: Array<LeaderboardItem>) :
 }
 
 class LeaderboardItem(
-    val difficulty: GameDifficulty,
     var name: String,
     var attempts: Int? = null,
     var time: Float? = null
-) {
-}
+)
